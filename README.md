@@ -1,4 +1,4 @@
-#Instrucciones:  
+Instrucciones:  
 Dadas las bases de datos airbus380 (airbus_380_acad.bak) y datos (datos.bak) proporcionados en la carpeta Dropbox , en 
 la base de datos airbus380, cree una tabla llamada clientes, la cual debe tener la estructura mostrada en la parte inferior, 
 así mismo cree una tabla llamada detalle_vuelos y ocupaciones.   
