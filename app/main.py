@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
-from app.api.routes import tables,queries
+from app.api.routes.tables import router as routers_tables
+from app.api.routes.queries import router as routers_queries
 
 app = FastAPI()
 
@@ -8,8 +9,8 @@ templates = Jinja2Templates(directory="src/templates")
 
 
 
-app.include_router(tables.router,prefix="/api/v1")
-app.include_router(queries.router,prefix="/api/v1")
+app.include_router(routers_queries,prefix="/api/v1")
+app.include_router(routers_tables,prefix="/api/v1")
 
 
 

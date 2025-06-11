@@ -9,11 +9,11 @@ class ReferenceKeyModel(BaseModel):
 class ColumnModel(BaseModel):
   name:str
   data_type:str
-  isnullable:bool = True
-  isPrimaryKey:bool = False
-  isForeignKey:bool = False
+  isnullable:int = 1
+  isPrimaryKey:int = 0
+  isForeignKey:int = 0
   reference:ReferenceKeyModel | None = None
 
 class TableModel(BaseModel):
   table_name:str
-  schema: list[ColumnModel]
+  columns: list[ColumnModel]

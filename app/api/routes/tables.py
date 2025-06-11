@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.services.tableService import TableService
 from app.db.connection import get_db
 from app.api.models.tableModel import TableModel
-
+from app.api.dependencies.tableDependency import get_table_dependency
 
 router = APIRouter(
   prefix="/tables",
@@ -13,21 +13,18 @@ router = APIRouter(
 
 
 @router.post("/create")
-async def create_tables(schema:TableModel):
+async def create_tables(schemaDB:TableModel,service:TableService = Depends(get_table_dependency)):
   """ 
   Create the necessary tables in the database.
-  This is a placeholder function and should be implemented with actual logic.
   """
   try:
-    db_instance = get_db()
-    serviceTable = TableService(db=db_instance)
-    await serviceTable.create_table(schema)
+    query = await service.create_table(schemaDB)
     return{
       "message": "Tables created successfully",
-      "table": ""
+      "table": query
     }
   except Exception as e:
-      raise HTTPException(status_code=500, detail=str(e))
+    raise HTTPException(status_code=500, detail=str(e))
       
 
 @router.get("/status")
@@ -37,12 +34,10 @@ async def get_tables_status():
   This is a placeholder function and should be implemented with actual logic.
   """
   try:
-    # Here you would typically call your database status check logic
-    # For example: status = await check_tables_status()
     status = {"status": "All tables are up to date"}
     return status
   except Exception as e:
-      raise HTTPException(status_code=500, detail=str(e))
+    raise HTTPException(status_code=500, detail=str(e))
     
 
 @router.delete("/delete")
@@ -52,11 +47,10 @@ async def delete_tables():
   This is a placeholder function and should be implemented with actual logic.
   """
   try:
-    # Here you would typically call your database deletion logic
-    # For example: await delete_all_tables()
     return {"message": "Tables deleted successfully"}
   except Exception as e:
     raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.put("/update")
 async def update_tables():
